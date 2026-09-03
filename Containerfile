@@ -1,5 +1,8 @@
+ARG DEBIAN_VERSION=13.6
+
 FROM docker.io/gautada/debian:13.6 as npm
 
+ARG NODE_VERSION=24.x
 # ╭――――――――――――――――――╮
 # │ METADATA         │
 # ╰――――――――――――――――――╯
@@ -14,7 +17,7 @@ LABEL org.opencontainers.image.license="Liscense"
 # ╰――――――――――――――――――╯
 RUN apt-get update \
  && apt-get upgrade --yes \
- && curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
+ && curl -fsSL https://deb.nodesource.com/setup_${NODE_VERSION} | bash - \
  && apt-get install -y --no-install-recommends nodejs \
  && corepack enable \
  && apt-get clean \
@@ -29,10 +32,11 @@ RUN apt-get update \
 # Follows the same pattern as other gautada containers.
 # The user name ryan was chosen after Ryan Dahl, the creator of Node.js.
 # as suggested by ChatGPT
+ARG OLDUSER=debian
 ARG USER=ryan
-RUN /usr/sbin/usermod -l $USER debian \
+RUN /usr/sbin/usermod -l $USER $OLDUSER \
  && /usr/sbin/usermod -d /home/$USER -m $USER \
- && /usr/sbin/groupmod -n $USER debian \
+ && /usr/sbin/groupmod -n $USER $OLDUSER \
  && PASSWORD="$(openssl rand -base64 32 | tr -dc 'A-Za-z0-9' | head -c 24)" \
  && printf '%s:%s\n' "$USER" "$PASSWORD" | /usr/sbin/chpasswd
 
