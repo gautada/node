@@ -1,6 +1,6 @@
 ARG DEBIAN_VERSION=13.6
 
-FROM docker.io/gautada/debian:13.6 as npm
+FROM docker.io/gautada/debian:${DEBIAN_VERSION} as npm
 
 ARG NODE_VERSION=24.x
 # ╭――――――――――――――――――╮
