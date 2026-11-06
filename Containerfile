@@ -21,9 +21,7 @@ RUN apt-get update \
  && apt-get install -y --no-install-recommends nodejs \
  && corepack enable \
  && apt-get clean \
- && rm -rf /var/lib/apt/lists/* \
- && echo "n8n@${IMAGE_VERSION}" \
- && npm install "n8n@${IMAGE_VERSION}" -g 
+ && rm -rf /var/lib/apt/lists/*
 
 # ╭――――――――――――――――――――╮
 # │ USER               │
