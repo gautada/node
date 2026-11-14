@@ -1,4 +1,4 @@
-ARG DEBIAN_VERSION=13.6
+ARG DEBIAN_VERSION=13.7
 
 FROM docker.io/gautada/debian:${DEBIAN_VERSION} as npm
 
