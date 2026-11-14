@@ -15,7 +15,7 @@ LABEL org.opencontainers.image.license="Liscense"
 # ╭――――――――――――――――――╮
 # │ PACKAGES         │
 # ╰――――――――――――――――――╯
-@ Removed the line `&& apt-get upgrade --yes` so this will faile the build check test.
+# Removed the line `&& apt-get upgrade --yes` so this will faile the build check test.
 RUN apt-get update \
  && curl -fsSL https://deb.nodesource.com/setup_${NODE_VERSION} | bash - \
  && apt-get install -y --no-install-recommends nodejs \
