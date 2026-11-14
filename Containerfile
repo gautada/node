@@ -1,6 +1,8 @@
-ARG DEBIAN_VERSION=13.6
+ARG DEBIAN_VERSION=13.7
 
 FROM docker.io/gautada/debian:${DEBIAN_VERSION} as npm
+
+USER root
 
 ARG NODE_VERSION=24.x
 # ╭――――――――――――――――――╮
@@ -15,8 +17,8 @@ LABEL org.opencontainers.image.license="Liscense"
 # ╭――――――――――――――――――╮
 # │ PACKAGES         │
 # ╰――――――――――――――――――╯
+# Removed the line `&& apt-get upgrade --yes` so this will faile the build check test.
 RUN apt-get update \
- && apt-get upgrade --yes \
  && curl -fsSL https://deb.nodesource.com/setup_${NODE_VERSION} | bash - \
  && apt-get install -y --no-install-recommends nodejs \
  && corepack enable \
@@ -54,3 +56,5 @@ RUN chmod 0755 /usr/bin/container-version
 # liveness, readiness, startup, and test alike.
 # COPY etc/health.d/pythonversion-check /etc/health.d/pythonversion-check
 # RUN chmod 0755 /etc/health.d/pythonversion-check
+
+USER ryan
